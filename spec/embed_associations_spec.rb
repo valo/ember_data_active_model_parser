@@ -42,27 +42,65 @@ describe EmberDataActiveModelParser::EmbedAssociations do
         [{
           id: 1,
           name: "Milk",
+          project_id: projects[0][:id]
         },
         {
           id: 2,
-          name: "Bread"
+          name: "Bread",
+          project_id: projects[0][:id]
         },
         {
           id: 3,
-          name: "Butter"
+          name: "Butter",
+          project_id: projects[1][:id]
+        }]
+      end
+
+      let(:projects) do
+        [{
+          id: 1,
+          name: "Shop list",
+          task_ids: [1,2]
+        }, {
+          id: 2,
+          name: "Other Shop list",
+          task_ids: [3]
         }]
       end
 
       let(:json) do
         {
-          projects: [{ id: 1, name: "Shop list", task_ids: [1,2] }, { id: 2, name: "Other Shop list", task_ids: [3] }],
+          projects: projects,
           tasks: tasks
         }
       end
+
+      let(:expected_tasks) do
+        [{
+          id: 1,
+          name: "Milk",
+          project: { project: projects[0] }
+        },
+        {
+          id: 2,
+          name: "Bread",
+          project: { project: projects[0] }
+        },
+        {
+          id: 3,
+          name: "Butter",
+          project: { project: projects[1] }
+        }]
+      end
+
+      let(:expected_projects) do
+        [{ id: 1, name: "Shop list", tasks: { tasks: expected_tasks[0, 2] } }, { id: 2, name: "Other Shop list", tasks: { tasks: expected_tasks[2, 3] } }]
+      end
+
       let(:expected_json) do
         {
-          projects: [{ id: 1, name: "Shop list", tasks: { tasks: tasks[0, 2] } }, { id: 2, name: "Other Shop list", tasks: { tasks: tasks[2, 3] } }],
-          tasks: tasks
+          projects: expected_projects,
+          tasks: expected_tasks
         }
       end
       let(:embed_associations) { EmberDataActiveModelParser::EmbedAssociations.new(json) }
