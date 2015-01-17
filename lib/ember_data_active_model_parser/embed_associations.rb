@@ -1,6 +1,6 @@
 require "active_support/inflector"
 
-module EmberDataActiveModelSerializersParser
+module EmberDataActiveModelParser
   class EmbedAssociations
     def initialize(root_json)
       @root_json = root_json
