@@ -30,7 +30,7 @@ describe EmberDataActiveModelParser::EmbedAssociations do
           tasks: tasks
         }
       end
-      let(:embed_associations) { EmberDataActiveModelSerializersParser::EmbedAssociations.new(json) }
+      let(:embed_associations) { EmberDataActiveModelParser::EmbedAssociations.new(json) }
 
       it "embeds the objects from the root to the proper parents" do
         expect(embed_associations.call).to eq(expected_json)
@@ -65,7 +65,7 @@ describe EmberDataActiveModelParser::EmbedAssociations do
           tasks: tasks
         }
       end
-      let(:embed_associations) { EmberDataActiveModelSerializersParser::EmbedAssociations.new(json) }
+      let(:embed_associations) { EmberDataActiveModelParser::EmbedAssociations.new(json) }
 
       it "embeds the objects from the root to the proper parents" do
         expect(embed_associations.call).to eq(expected_json)
@@ -125,7 +125,7 @@ describe EmberDataActiveModelParser::EmbedAssociations do
           authors: authors
         }
       end
-      let(:embed_associations) { EmberDataActiveModelSerializersParser::EmbedAssociations.new(json) }
+      let(:embed_associations) { EmberDataActiveModelParser::EmbedAssociations.new(json) }
 
       it "embeds the objects from the root to the proper parents" do
         expect(embed_associations.call).to eq(expected_json)

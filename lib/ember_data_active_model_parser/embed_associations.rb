@@ -29,8 +29,6 @@ module EmberDataActiveModelParser
       hash.keys.each do |key|
         if association_ids_key(key, hash[key])
           handle_association_ids(hash, hash.delete(key), association_name(key))
-        else
-          walk(hash[key])
         end
       end
     end
