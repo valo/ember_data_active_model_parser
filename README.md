@@ -32,7 +32,7 @@ end
 class TaskSerializer < ActiveModel::Serializer
   embed :ids, embed_in_root: true
 
-  attributes :id, :name, :completed, :project_id
+  attributes :id, :name, :completed
 end
 ```
 
@@ -70,6 +70,37 @@ Her::API.setup url: "http://localhost:3000" do |c|
   c.use Faraday::Adapter::NetHttp
 end
 ```
+
+## Circular dependencies
+
+Be careful when defining your serializers not to fall into a circular dependency problems. For example including the project_id in the tasks:
+
+```ruby
+class ProjectSerializer < ActiveModel::Serializer
+  embed :ids, embed_in_root: true
+
+  attributes :id, :name
+
+  has_many :tasks
+end
+
+class TaskSerializer < ActiveModel::Serializer
+  embed :ids, embed_in_root: true
+
+  attributes :id, :name, :completed
+
+  # This is going to cause SystemStackError in her, because of the circular dependency between
+  # the models
+  attributes :project_id
+end
+```
+
+# Example projects
+
+You can see some example probjects here:
+
+* A Rails API with EmberJS as frontend for projects and tasks: [ember_rails_api_example](https://github.com/valo/ember_rails_api_example)
+* A Rails app which uses Her as ORM to consume data from the example project above: [ember_rails_api_consumer](https://github.com/valo/ember_rails_api_consumer)
 
 ## Contributing
 
