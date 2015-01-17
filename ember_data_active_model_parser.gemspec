@@ -1,7 +1,7 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'ember_data_active_model_serializers_parser/version'
+require 'ember_data_active_model_parser/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "ember_data_active_model_parser"
