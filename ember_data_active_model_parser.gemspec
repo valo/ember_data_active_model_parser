@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["valentin.mihov@gmail.com"]
   spec.summary       = %q{A parser for Her compatible with ember-data's active_model_serializers format}
   spec.description   = %q{A parser that enables Her to consume data exposed through active_model_serializers and compatible with the ember-data format}
-  spec.homepage      = "https://github/"
+  spec.homepage      = "https://github.com/valo/ember_data_active_model_parser"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
