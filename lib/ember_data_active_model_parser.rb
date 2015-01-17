@@ -11,7 +11,6 @@ module EmberDataActiveModelParser
     end
 
     def on_complete(env)
-      Rails.logger.info parse(env[:body]).inspect
       env[:body] = {
         data: parse(env[:body])
       }
