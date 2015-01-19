@@ -4,7 +4,7 @@ This is a middleware for [Her](http://her-rb.org/) which makes it possible to co
 
 ## Status
 
-![Build status](https://travis-ci.org/valo/ember_data_active_model_parser.svg)
+[![Build status](https://travis-ci.org/valo/ember_data_active_model_parser.svg)](https://travis-ci.org/valo/ember_data_active_model_parser)
 
 ## Installation
 
