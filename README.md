@@ -2,6 +2,10 @@
 
 This is a middleware for [Her](http://her-rb.org/) which makes it possible to consume API endpoints used by ember-data's [ActiveModelAdapter](http://emberjs.com/api/data/classes/DS.ActiveModelAdapter.html). You can read more about the data format in the ember-data's [docs](http://emberjs.com/api/data/classes/DS.ActiveModelAdapter.html)
 
+## Status
+
+[![Build status](https://travis-ci.org/valo/ember_data_active_model_parser.svg)](https://travis-ci.org/valo/ember_data_active_model_parser)
+
 ## Installation
 
 Add this line to your application's Gemfile:
