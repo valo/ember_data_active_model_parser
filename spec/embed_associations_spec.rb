@@ -26,7 +26,7 @@ describe EmberDataActiveModelParser::EmbedAssociations do
       end
       let(:expected_json) do
         {
-          project: { id: 1, name: "Shop list", tasks: { tasks: tasks } },
+          project: { id: 1, name: "Shop list", tasks: { tasks: tasks }, task_ids: [1,2,3] },
           tasks: tasks
         }
       end
@@ -79,22 +79,25 @@ describe EmberDataActiveModelParser::EmbedAssociations do
         [{
           id: 1,
           name: "Milk",
-          project: { project: projects[0] }
+          project: projects[0],
+          project_id: projects[0][:id]
         },
         {
           id: 2,
           name: "Bread",
-          project: { project: projects[0] }
+          project: projects[0],
+          project_id: projects[0][:id]
         },
         {
           id: 3,
           name: "Butter",
-          project: { project: projects[1] }
+          project: projects[1],
+          project_id: projects[1][:id]
         }]
       end
 
       let(:expected_projects) do
-        [{ id: 1, name: "Shop list", tasks: { tasks: expected_tasks[0, 2] } }, { id: 2, name: "Other Shop list", tasks: { tasks: expected_tasks[2, 3] } }]
+        [{ id: 1, name: "Shop list", tasks: { tasks: expected_tasks[0, 2] }, task_ids: [1,2] }, { id: 2, name: "Other Shop list", tasks: { tasks: expected_tasks[2, 3] }, task_ids: [3] }]
       end
 
       let(:expected_json) do
@@ -110,7 +113,6 @@ describe EmberDataActiveModelParser::EmbedAssociations do
       end
     end
 
-
     context "with an object with some associations that have associations" do
       let(:tasks) do
         [{
@@ -122,6 +124,11 @@ describe EmberDataActiveModelParser::EmbedAssociations do
           id: 2,
           name: "Bread",
           author_id: 2
+        },
+        {
+          id: 3,
+          name: "Cheese",
+          author_id: nil
         }]
       end
 
@@ -129,12 +136,20 @@ describe EmberDataActiveModelParser::EmbedAssociations do
         [{
           id: 1,
           name: "Milk",
-          author: { author: authors[0] }
+          author: authors[0],
+          author_id: 1
         },
         {
           id: 2,
           name: "Bread",
-          author: { author: authors[1] }
+          author: authors[1],
+          author_id: 2
+        },
+        {
+          id: 3,
+          name: "Cheese",
+          author: nil,
+          author_id: nil
         }]
       end
 
@@ -151,14 +166,14 @@ describe EmberDataActiveModelParser::EmbedAssociations do
 
       let(:json) do
         {
-          project: { id: 1, name: "Shop list", task_ids: [1,2] },
+          project: { id: 1, name: "Shop list", task_ids: [1, 2, 3] },
           tasks: tasks,
           authors: authors
         }
       end
       let(:expected_json) do
         {
-          project: { id: 1, name: "Shop list", tasks: { tasks: expected_tasks } },
+          project: { id: 1, name: "Shop list", tasks: { tasks: expected_tasks }, task_ids: [1, 2, 3] },
           tasks: expected_tasks,
           authors: authors
         }

@@ -28,7 +28,7 @@ module EmberDataActiveModelParser
     def walk_hash(hash)
       hash.keys.each do |key|
         if association_ids_key(key, hash[key])
-          handle_association_ids(hash, hash.delete(key), association_name(key))
+          handle_association_ids(hash, hash[key], association_name(key))
         end
       end
     end
@@ -42,14 +42,14 @@ module EmberDataActiveModelParser
             }
           }
         when Fixnum
-          hash[association_name.to_sym] = {
-            association_name.to_sym => association_array(association_name).find { |association_item| association_item[:id] == association_ids }
-          }
+          hash[association_name.to_sym] = association_array(association_name).find { |association_item| association_item[:id] == association_ids }
+        when nil
+          hash[association_name.to_sym] = nil
       end
     end
 
     def association_ids_key(key, value)
-      key.to_s =~ /(.+)_id(s?)$/ && association_array(association_name(key)) && (value.is_a?(Array) || value.is_a?(Fixnum))
+      key.to_s =~ /(.+)_id(s?)$/ && association_array(association_name(key)) && (value.is_a?(Array) || value.is_a?(Fixnum) || value.nil?)
     end
 
     def association_name(key)
